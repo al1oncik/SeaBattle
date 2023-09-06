@@ -2,7 +2,6 @@ package game;
 
 import java.util.List;
 import java.util.logging.Logger;
-import exceptions.ShipExceptions.InvalidShipLength;
 
 public class Ship {
     private Logger log = Logger.getLogger("game.Ship");
@@ -22,10 +21,10 @@ public class Ship {
         return coordinates;
     }
 
-    public Ship(List<List<Integer>> coordinates, int length) throws InvalidShipLength {
+    public Ship(List<List<Integer>> coordinates, int length) throws Exception {
         this.coordinates = coordinates;
         if (!(length > 0 & length < 5)) {
-            throw new InvalidShipLength("Invalid Ship Length");
+            throw new Exception("Invalid Ship Length");
         }
         this.length = length;
     }

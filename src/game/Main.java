@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import exceptions.ShipExceptions.InvalidShipLength;
-
 public class Main {
     private static Logger log = Logger.getLogger("game.Main");
     private static final Pattern pattern = Pattern.compile("^\\d,\\d(;\\d,\\d){0,3}$");
@@ -61,7 +59,7 @@ public class Main {
 
     }
 
-    private static Ship getShip(int length) throws InvalidShipLength, Exception {
+    private static Ship getShip(int length) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Print the coordinates of the ship with length " + length);
         String coordinates = scanner.nextLine();
@@ -112,8 +110,12 @@ public class Main {
                         return getShip(length);
                     }
                 }
+                try {
+                    return new Ship(xy,length);
+                } catch (Exception e) {
+                    return getShip(length);
+                }
 
-                return new Ship(xy,length);
             }
             System.err.println("Ships must be located horizontally or vertically only!");
             return getShip(length);
@@ -133,8 +135,6 @@ public class Main {
                     field.draw();
                 }
             }
-        } catch (InvalidShipLength isl) {
-            System.err.println(isl.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
